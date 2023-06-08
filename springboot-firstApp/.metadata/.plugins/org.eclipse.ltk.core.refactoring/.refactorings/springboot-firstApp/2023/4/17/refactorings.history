@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.springboot.App.service.Newsservice&apos; to &apos;ApiService&apos;&#x0D;&#x0A;- Original project: &apos;springboot-firstApp&apos;&#x0D;&#x0A;- Original element: &apos;com.springboot.App.service.Newsservice&apos;&#x0D;&#x0A;- Renamed element: &apos;com.springboot.App.service.ApiService&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Newsservice&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.springboot.App.service{Newsservice.java[Newsservice" matchStrategy="1" name="ApiService" qualified="false" references="true" similarDeclarations="false" stamp="1682274064478" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,31 @@
+package com.springboot.App.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
+import com.springboot.App.service.LocalService;
+
+import pojopack.Article;
+import pojopack.NewsResponse;
+
+@Service
+public class LocalServiceImpl implements LocalService {
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	private static final String API_URL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=622b1251082f4f54a01941b705790a9e&pageSize=99";
+	      @Override
+	    public Article[] localNews() {
+	        String apiUrl = API_URL;
+	        String response = restTemplate.getForObject(apiUrl, String.class);
+	      NewsResponse newsResponse = new Gson().fromJson(response, NewsResponse.class);
+	        return newsResponse.getArticles();
+	        
+	    }
+
+	
+
+}

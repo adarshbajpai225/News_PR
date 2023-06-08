@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+
+button {
+	background-color: #2B2D42;
+	color: #FFF;
+	font-size: 1rem;
+	font-weight: bold;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-top: 1rem;
+}
+
+</style>
+</head>
+<body>
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid"  style="justify-content:space-between">
+		
+		<div>
+			<a class="navbar-brand"  href="">LOCAL</a>
+			<a class="navbar-brand" href="/india">INDIA</a>
+			<a class="navbar-brand" href="/global">GLOBAL</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarNav" style="flex-grow:0">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+                </ul>
+                
+                 <form method="get" action="/getdata">
+        <label for="country">Country:</label>
+         <select id="country" name="country">
+            <option value="us" th:selected="${param.country== 'us'}">USA</option>
+            <option value="in" th:selected="${param.country == 'in'}">INDIA</option>
+            <option value="ch" th:selected="${param.country == 'ch'}">CHINA</option> 
+            <option value="br" th:selected="${param.country == 'br'}">BRAZIL</option> 
+            <option value="ae" th:selected="${param.country == 'ae'}">UAE</option>
+            <option value="jp" th:selected="${param.country == 'jp'}">JAPAN</option> 
+        </select>
+        <button type="submit">Submit</button>
+        </form>
+        
+        <form method="get" action="/getdata">
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="business" th:selected="${param.category == 'business'}">Business</option>
+            <option value="entertainment" th:selected="${param.category == 'entertainment'}">Entertainment</option>
+            <option value="general" th:selected="${param.category == 'general'}">General</option>
+            <option value="health" th:selected="${param.category == 'health'}">Health</option>
+            <option value="science" th:selected="${param.category == 'science'}">Science</option>
+            <option value="sports" th:selected="${param.category == 'sports'}">Sports</option>
+            <option value="technology" th:selected="${param.category == 'technology'}">Technology</option>
+        </select>
+        <button type="submit">Submit</button>
+        </form>
+			    </div>
+		       </div>
+	           </nav>
+
+		<div class="row my-2">
+			<div class="col-md-6 col-lg-4" th:each="article : ${data}">
+				<div class="card mx-3 mb-3">
+					<img class="card-img-top" style="height: 300px;" th:src="${article.urlToImage}"
+						alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${article.title}"></h5>
+						<p class="card-text" th:text="${article.description != null and #strings.length(article.description) > 100} ? 
+						${#strings.substring(article.description, 0, 100) + '...'} : ${article.description}"></p>
+
+						<a th:href="${article.url}" target="_blank"
+							class="btn btn-primary" th:text="'Read More'"></a>
+					</div>
+					<div class="card-footer text-muted"
+						th:text="${article.source.name}"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row my-3">
+		
+       <button type="button" id="submitButton" onclick="window.location.href='/getdata'">Next Page</button>
+       
+       
+		</div>
+		
+  
+</body>	
+
+	

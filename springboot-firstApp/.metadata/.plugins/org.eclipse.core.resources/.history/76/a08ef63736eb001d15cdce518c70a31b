@@ -1,0 +1,40 @@
+package com.springboot.App.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.google.gson.Gson;
+import com.springboot.App.service.ApiService;
+import pojopack.Article;
+import pojopack.NewsResponse;
+import pojopack.Source;
+import pojopack.Pagecount;
+
+
+@org.springframework.stereotype.Controller
+
+public class Controller {
+	
+	@Autowired
+	private RestTemplate restTemplate;
+    
+    @GetMapping("/local")
+    public String localNews(Model model) {
+        String url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=622b1251082f4f54a01941b705790a9e&pageSize=30";
+        String newsData = restTemplate.getForObject(url, String.class);
+        Article[] myData =new Gson().fromJson(newsData.toString(),NewsResponse.class).getArticles();
+        model.addAttribute("newsData", myData);
+        return "local";
+    }  
+    
+   
+    
+}

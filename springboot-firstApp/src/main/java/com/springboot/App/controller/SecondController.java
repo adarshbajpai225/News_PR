@@ -1,0 +1,43 @@
+package com.springboot.App.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
+
+import pojopack.Article;
+import pojopack.NewsResponse;
+
+@Controller
+public class SecondController {
+    	
+	@Autowired
+    private RestTemplate restTemplate;
+    
+    private String API_KEY="622b1251082f4f54a01941b705790a9e";
+    
+   
+
+    
+    @GetMapping("/getdata")
+    public String home(@RequestParam(required = false) String country, @RequestParam(required = false) String category, Model model) {
+        String url;
+        if (country != null) {
+            url = String.format("https://newsapi.org/v2/top-headlines?country=%s&apiKey=%s&pageSize=30", country, API_KEY);
+        } else {
+            url = String.format("https://newsapi.org/v2/top-headlines?category=%s&apiKey=%s&pageSize=30", category, API_KEY);
+        }
+        
+        RestTemplate restTemplate = new RestTemplate();
+        NewsResponse response = restTemplate.getForObject(url, NewsResponse.class);
+        
+        Article[] responseData = response.getArticles();
+        model.addAttribute("articles", responseData);
+        
+        return "helloworld";
+    }
+}

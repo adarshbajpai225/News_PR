@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Article List</title>
+</head>
+<body style="display:flex;flex-direction:coloumn;gap:2rem">
+	<h1>Article List</h1>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Author</th>
+				<th>Published At</th>
+				<th>Content</th>
+				<th>Url</th>
+				<th>Image</th>
+				
+			</tr>
+		</thead>
+		
+		<tbody>
+		<tr th:each="article : ${data}">
+
+    <div style="padding-top: 20px;padding-left: 10px;padding-right: 10px;">
+    <img style="float:left; width:150px;" th:src="${article.urlToImage}" />
+    <h1 th:text="${article.title}"></h1>
+    <span th:text="${article.source.name}"></span>
+    <br />
+    <span th:text="${article.description}"></span>
+    <a th:href="${article.url}" target="_blank" th:text="${article.url}"></a>
+    </div>
+			
+  <!--  <td th:text="${article.title}"></td>
+   <td th:text="${article.description}"></td>
+   <td th:text="${article.author}"></td>
+   <td th:text="${article.publishedAt}"></td>
+   <td th:text="${article.content}"></td>
+    <td th:text="${article.url}"></td>
+  <td><img th:src="${article.urlToImage}" th:alt="${article.title}"   th:width="100" th:height="100"/></td> -->
+  
+</tr>
+		</tbody>
+	</table>	
+	
+	<div>
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" th:href="@{/hello(page=1)}">First</a></li>
+        <li class="page-item" th:if="${currentPage > 1}"><a class="page-link" th:href="@{/hello(page=${currentPage - 1})}">Previous</a></li>
+        <li class="page-item" th:if="${currentPage < totalPages}"><a class="page-link" th:href="@{/hello(page=${currentPage + 1})}">Next</a></li>
+        <li class="page-item"><a class="page-link" th:href="@{/hello(page=${totalPages})}">Last</a></li>
+    </ul>
+   </div>
+	
+</body>
+</html>
